@@ -1,6 +1,6 @@
 {
   "name": "nginx-etag",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "generate and decode nginx etags",
   "main": "index.js",
   "scripts": {
