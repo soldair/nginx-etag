@@ -1,7 +1,7 @@
 # nginx-etag
 generate an etag like nginx
 
-```
+```js
 var etag = require('nginx-etag')
 
 var tag = etag(Date.now()/1000,10)
@@ -42,11 +42,10 @@ rather than using the modified time value directly passes the crc32 of the conte
 to read the etag correctly be sure to pass to `etag.parseContentBased`
 
 example.
+
 ```js
 etag.fromFile(filePath,function(err,tag){
   var obj = etag.parseContentBased(tag)
   console.log(obj)
 })
-``
-
-`
+```
