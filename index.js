@@ -2,6 +2,7 @@ var crc = require('crc')
 var fs = require('fs')
 
 module.exports = function(mtime,length){
+  mtime = Math.floor(mtime)
   return '"'+mtime.toString(16)+'-'+length.toString(16)+'"'
 }
 

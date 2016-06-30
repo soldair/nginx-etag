@@ -9,7 +9,7 @@ var tag = etag(Date.now()/1000,10)
 console.log(tag)
 
 ```
-will print something like `'"5775550c.d020c4-a"'`
+will print something like `'"57755bb3-a"'`
 
 ## api
 
