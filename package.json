@@ -1,0 +1,28 @@
+{
+  "name": "nginx-etag",
+  "version": "1.0.0",
+  "description": "generate and decode nginx etags",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soldair/nginx-etag.git"
+  },
+  "keywords": [
+    "nginx",
+    "etag",
+    "hash",
+    "modified"
+  ],
+  "author": "Ryan Day <soldair@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soldair/nginx-etag/issues"
+  },
+  "homepage": "https://github.com/soldair/nginx-etag#readme",
+  "devDependencies": {
+    "tape": "^4.6.0"
+  }
+}
