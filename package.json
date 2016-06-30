@@ -24,5 +24,8 @@
   "homepage": "https://github.com/soldair/nginx-etag#readme",
   "devDependencies": {
     "tape": "^4.6.0"
+  },
+  "dependencies": {
+    "crc": "^3.4.0"
   }
 }
