@@ -40,12 +40,9 @@ module.exports.setContentBased = function(file,cb){
   eos(rs,function(err){
     if(err) return cb(err)
     var checksum = hash.digest().readUInt32BE()
-    fs.open(file,'r',function(err,fd){
-      if(err) return cb(err)
-      fs.futimes(fd,checksum,checksum,function(err){
-        fs.close(fd,function(){})
-        cb(err)
-      })
+    fs.utimes(file,checksum,checksum,function(err){
+      console.log('UTIMES CALLABCK')
+      cb(err)
     })
   })
 }
