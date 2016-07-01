@@ -26,14 +26,14 @@ will print something like `'"57755bb3-a"'`
 ## content based api
 
 ### tag = etag.contentBased(content)
-rather than using the modified time value directly passes the crc32 of the content to use as the basis for the etag
+rather than using the modified time value directly, this uses the first 32 bit int from the md5 hash of the content to use as the basis for the etag
 
 ### object = etag.parseContentBased(tag)
- - object.crc
+ - object.checksum
  - object.length
 
 ### etag.setContentBased(filePath,callback)
-  this sets the file's modified timestamp to the crc of it's data.
+  this sets the file's modified timestamp to the md5 number of it's data.
   because nginx uses the mtime this allows you to make etags that can be distributed accross hosts with only the data itself.
   
   - filePath is the path the the file that you want toupdate the mtime for.

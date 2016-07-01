@@ -1,6 +1,5 @@
 var test = require('tape')
 var etag = require('../')
-var crc = require('crc')
 var fs = require('fs')
 
 test("can",function(t){
@@ -19,12 +18,12 @@ test("can",function(t){
 
 test("can do content based etags",function(t){
   var content = "i am an apple"
-  var checksum = crc.crc32(content)
+  var checksum = etag.md5Number(content)
   var tag = etag.contentBased(content)
   var o = etag.parseContentBased(tag)
 
   t.equals(o.length,content.length,'parsed length should equal encoded length')
-  t.equals(o.crc,checksum,'parsed crc should equal crc32 checksum')
+  t.equals(o.checksum,checksum,'parsed checksum should equal md5 number checksum')
   t.end() 
 })
 
@@ -32,7 +31,7 @@ test("can set and reaf content based etags on files",function(t){
 
   var content = "foo"
   var path = __dirname+'/tmp'
-  var checksum = crc.crc32(content)
+  var checksum = etag.md5Number(content)
 
   fs.writeFileSync(path,content)
   
@@ -43,7 +42,7 @@ test("can set and reaf content based etags on files",function(t){
       o = etag.parseContentBased(tag)
       console.log(o)
 
-      t.equals(o.crc,checksum,'should have set mtime to checksum value')
+      t.equals(o.checksum,checksum,'should have set mtime to checksum value')
       t.equals(o.length,content.length,'should have correct length')
       t.end()
     })

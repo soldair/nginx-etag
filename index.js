@@ -1,5 +1,6 @@
-var crc = require('crc')
+var crypto = require('crypto')
 var fs = require('fs')
+var eos = require('end-of-stream')
 
 module.exports = function(mtime,length){
   mtime = Math.floor(mtime)
@@ -15,13 +16,12 @@ module.exports.parse = function(etag){
 }
 
 module.exports.contentBased = function(content){
-  return module.exports(crc.crc32(content),content.length)
+  return module.exports(md5number(content),content.length)
 }
 
 module.exports.parseContentBased = function(etag){
   var o = module.exports.parse(etag)
-  o.crc = o.mtime 
-  delete o.mtime
+  o.checksum = o.mtime 
   return o
 }
 
@@ -33,9 +33,13 @@ module.exports.fromFile = function(file,cb){
 }
 
 module.exports.setContentBased = function(file,cb){
-  fs.readFile(file,function(err,buf){
+  var hash = crypto.createHash('md5')
+  var rs = fs.createReadStream(file).on('data',function(buf){
+    hash.update(buf)
+  })
+  eos(rs,function(err){
     if(err) return cb(err)
-    var checksum = crc.crc32(buf)
+    var checksum = hash.digest().readUInt32BE()
     fs.open(file,'r',function(err,fd){
       if(err) return cb(err)
       fs.futimes(fd,checksum,checksum,function(err){
@@ -44,4 +48,10 @@ module.exports.setContentBased = function(file,cb){
       })
     })
   })
+}
+
+module.exports.md5Number = md5number
+
+function md5number(content){
+  return crypto.createHash('md5').update(content).digest().readUInt32BE()
 }
