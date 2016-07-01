@@ -41,7 +41,6 @@ module.exports.setContentBased = function(file,cb){
     if(err) return cb(err)
     var checksum = hash.digest().readUInt32BE()
     fs.utimes(file,checksum,checksum,function(err){
-      console.log('UTIMES CALLABCK')
       cb(err)
     })
   })
